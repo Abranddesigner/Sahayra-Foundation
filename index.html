@@ -1,221 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sahayra Foundation</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      color: #333;
-      background: #fff;
+    :root{
+      --orange:#ff7a00;
+      --light-gray:#e6e6e6;
+      --active-gray:#cfcfcf;
+      --text:#222;
     }
-    /* HEADER */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    nav.desktop-nav {
-      display: flex;
-      gap: 15px;
-    }
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-    }
-    nav a:hover { color: orange; }
-    .donate-btn {
-      background: orange;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .donate-btn:hover { background: #e69500; }
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background: #333;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      color:var(--text);
+      background:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* MOBILE SIDEBAR */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: -250px;
-      width: 250px;
-      background: #fff;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.2);
-      transition: right 0.3s ease-in-out;
-      padding: 20px;
-      z-index: 1500;
+    /* =========== HEADER ============ */
+    header{
+      position:sticky;
+      top:0;
+      z-index:1200;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 18px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.06);
     }
-    .sidebar.open { right: 0; }
-    .sidebar a {
-      display: block;
-      margin: 10px 0;
-      color: #333;
-      text-decoration: none;
-      font-weight: 500;
+    .logo img{height:48px; display:block;}
+    nav.desktop{
+      display:flex;
+      gap:18px;
+      align-items:center;
     }
-    .sidebar .donate-btn {
-      margin-top: 20px;
-      width: 100%;
+    nav.desktop a{
+      text-decoration:none;
+      color:var(--text);
+      font-weight:600;
+      font-size:15px;
     }
-
-    /* SLIDER */
-    .slider {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      height: 60vh;
-      max-height: 500px;
-    }
-    .slide {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.8s ease-in-out;
-    }
-    .slide.active { opacity: 1; }
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .slide-content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: white;
-      width: 90%;
-      max-width: 600px;
-    }
-    .slide-content h2 {
-      font-size: 2rem;
-      color: orange;
-      margin-bottom: 10px;
+    nav.desktop a:hover{color:var(--orange)}
+    .donate-header{
+      background:var(--orange);
+      color:#fff;
+      border:none;
+      padding:8px 16px;
+      border-radius:20px;
+      font-weight:600;
+      cursor:pointer;
     }
 
-    /* CORE VALUES */
-    .core-values {
-      display: flex;
-      background: #f5f5f5;
-      padding: 40px 20px;
-      flex-wrap: wrap;
-      gap: 20px;
+    /* hamburger (mobile) */
+    .hamburger{
+      display:none;
+      width:36px;
+      height:36px;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
     }
-    .core-list {
-      flex: 1 1 200px;
-      max-width: 250px;
-    }
-    .core-list button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      text-align: left;
-      background: #e0e0e0;
-      border: none;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-    .core-list button.active { background: #bfbfbf; }
-    .core-content {
-      flex: 2 1 400px;
-    }
-    .core-content h3 {
-      font-size: 1.8rem;
-      color: orange;
+    .hamburger .bar{
+      width:22px;
+      height:2px;
+      background:#222;
+      margin:3px 0;
+      transition:transform .2s;
     }
 
-    /* ABOUT */
-    .about {
-      padding: 40px 20px;
-      background: #fff;
+    /* =========== SIDEBAR (mobile) ============ */
+    .overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.28);
+      z-index:1150;
     }
-    .about h2 {
-      color: orange;
-      margin-bottom: 15px;
+    .overlay.show{display:block}
+    .sidebar{
+      position:fixed;
+      top:64px; /* below header */
+      right:-320px;
+      width:280px;
+      max-height: calc(100vh - 80px);
+      overflow:auto;
+      background:#fff;
+      box-shadow:-10px 0 30px rgba(0,0,0,0.12);
+      padding:18px;
+      transition:right .28s ease;
+      z-index:1160;
+      border-left:1px solid #f0f0f0;
+      border-radius:8px 0 0 8px;
+    }
+    .sidebar.open{ right:12px; } /* slight gap from edge on open */
+    .sidebar a{ display:block; padding:10px 6px; color:var(--text); text-decoration:none; font-weight:600; border-radius:6px;}
+    .sidebar a:hover{ background:#fafafa }
+    .sidebar .donate-sidebar{ margin-top:12px; width:100%; }
+
+    /* =========== SLIDER ============ */
+    .slider{
+      position:relative;
+      width:100%;
+      height:60vh;
+      max-height:520px;
+      overflow:hidden;
+      touch-action:pan-y;
+    }
+    .slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transition:opacity .7s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .slide.active{ opacity:1; z-index:1; }
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .slide .overlay-dark{
+      position:absolute; inset:0; background:rgba(0,0,0,0.4);
+    }
+    .slide .content{
+      position:relative;
+      z-index:2;
+      max-width:900px;
+      width:92%;
+      text-align:center;
+      color:#fff;
+      padding:8px;
+    }
+    .slide h2{ font-size:2.4rem; margin:0 0 10px; color:var(--orange); }
+    .slide p{ font-size:1.05rem; line-height:1.4; margin:0 0 14px; }
+
+    /* dots */
+    .dots{
+      position:absolute;
+      bottom:12px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:8px;
+      z-index:3;
+    }
+    .dot{ width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.6); cursor:pointer; }
+    .dot.active{ background:#fff; box-shadow:0 0 0 4px rgba(255,255,255,0.12); }
+
+    /* =========== CORE VALUES ============ */
+    .core-section{
+      display:flex;
+      gap:22px;
+      align-items:flex-start;
+      padding:36px 20px;
+      background:#fafafa;
+      flex-wrap:wrap;
+    }
+    .core-list{
+      flex:0 0 220px;
+      min-width:180px;
+    }
+    .core-list button{
+      width:100%;
+      text-align:left;
+      background:var(--light-gray);
+      border:none;
+      padding:12px;
+      margin-bottom:10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+      transition:background .18s;
+    }
+    .core-list button.active{ background:var(--active-gray); }
+    .core-content{
+      flex:1;
+      min-width:260px;
+      background:#fff;
+      padding:18px;
+      border-radius:8px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.04);
+      min-height:120px;
+    }
+    .core-content h3{ color:var(--orange); margin:0 0 8px; font-size:1.4rem; }
+    .core-content p{ margin:0; line-height:1.6; }
+
+    /* =========== ABOUT ============ */
+    .about{
+      padding:34px 20px;
+      background:#fff;
+    }
+    .about h2{ color:var(--orange); margin:0 0 10px; font-size:1.6rem; }
+    .about p, .about ul{ color:var(--text); font-size:1rem; line-height:1.6; }
+
+    /* =========== IMPACT ============ */
+    .impact{
+      position:relative;
+      padding:48px 20px;
+      color:#fff;
+      overflow:hidden;
+    }
+    .impact img.bg{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+    }
+    .impact .dark{
+      position:absolute; inset:0; background:rgba(0,0,0,0.7); z-index:1; /* 70% black overlay */
+    }
+    .impact .impact-inner{
+      position:relative; z-index:2; max-width:900px; margin:0 auto; text-align:center;
+    }
+    .impact h2{ color:var(--orange); margin-bottom:12px; }
+    .impact ul{ list-style:none; padding:0; margin:0 0 12px; }
+    .impact ul li{ margin-bottom:8px; font-size:1rem; }
+
+    /* =========== FOOTER ============ */
+    footer{
+      background:#0b0b0c;
+      color:#fff;
+      padding:22px 20px;
+      display:flex;
+      gap:20px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .footer-left{ max-width:760px; font-size:0.95rem; line-height:1.5; }
+    .footer-right img{ height:48px; display:block; }
+    footer hr{ width:100%; border:0; height:1px; background:#222; margin:12px 0; opacity:0.6; }
+
+    .copyright{
+      width:100%;
+      text-align:center;
+      font-size:0.92rem;
+      margin-top:6px;
+      color:#ddd;
     }
 
-    /* IMPACT */
-    .impact {
-      position: relative;
-      padding: 60px 20px;
-      color: white;
-      text-align: center;
+    /* responsive tweaks */
+    @media (max-width:900px){
+      .core-section{ flex-direction:column; padding:22px; }
+      .core-list{ width:100%; display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; }
+      .core-list button{ flex:0 0 auto; min-width:140px; }
+      .core-content{ width:100%; margin-top:8px; }
+      footer{ flex-direction:column; align-items:center; text-align:center; }
+      .footer-left{ order:1; }
+      .footer-right{ order:2; margin-top:10px; }
+      .copyright{ order:3; }
     }
-    .impact img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.4;
-    }
-    .impact::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-    }
-    .impact-content {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #111;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-    footer img {
-      height: 40px;
-      margin-top: 10px;
-    }
-    footer hr {
-      border: 0;
-      height: 1px;
-      background: #444;
-      margin: 15px 0;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav.desktop-nav { display: none; }
-      .hamburger { display: flex; }
-      .slider { height: 50vh; }
+    @media (max-width:640px){
+      .slide h2{ font-size:1.6rem; }
+      .slide p{ font-size:0.95rem; }
+      header{ padding:10px 12px; }
+      .logo img{ height:42px; }
+      .sidebar{ width:260px; }
+      .sidebar.open{ right:8px; }
+      .hamburger{ display:flex }
+      nav.desktop{ display:none; }
     }
   </style>
 </head>
@@ -223,85 +272,250 @@
 
   <!-- HEADER -->
   <header>
-    <img src="https://ik.imagekit.io/Foundation/Shayra%20logo.png?updatedAt=1757213403979" alt="Sahayra Logo" height="50">
-    <nav class="desktop-nav">
+    <div class="logo">
+      <img src="https://ik.imagekit.io/Foundation/Shayra%20logo.png?updatedAt=1757213403979" alt="Sahayra Logo">
+    </div>
+
+    <nav class="desktop" aria-label="Primary">
       <a href="#who">Who we are</a>
       <a href="#what">What we do</a>
       <a href="#help">How to help</a>
       <a href="#contact">Get in touch</a>
     </nav>
-    <div class="hamburger" onclick="toggleSidebar()">
-      <div></div><div></div><div></div>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="donate-header" aria-label="Donate now">Donate Now</button>
+      <div class="hamburger" id="hamburger" aria-label="Open menu" role="button" tabindex="0">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
     </div>
   </header>
 
-  <!-- MOBILE SIDEBAR -->
-  <div class="sidebar" id="sidebar">
-    <a href="#who">Who we are</a>
-    <a href="#what">What we do</a>
-    <a href="#help">How to help</a>
-    <a href="#contact">Get in touch</a>
-    <button class="donate-btn">Donate Now</button>
-  </div>
+  <!-- SIDEBAR + OVERLAY (mobile) -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="sidebar" id="sidebar" aria-hidden="true">
+    <nav aria-label="mobile">
+      <a href="#who" onclick="closeSidebar()">Who we are</a>
+      <a href="#what" onclick="closeSidebar()">What we do</a>
+      <a href="#help" onclick="closeSidebar()">How to help</a>
+      <a href="#contact" onclick="closeSidebar()">Get in touch</a>
+    </nav>
+    <button class="donate-sidebar donate-header" onclick="closeSidebar()">Donate Now</button>
+  </aside>
 
   <!-- SLIDER -->
-  <section class="slider" id="slider">
-    <!-- SAME SLIDES AS BEFORE -->
-    <div class="slide active">
-      <img src="https://ik.imagekit.io/Foundation/Punjab_Gurdaspur__1756442018170_1756442018365.jpg?updatedAt=1757213452885" alt="Punjab">
-      <div class="slide-content">
+  <section class="slider" id="slider" aria-roledescription="carousel">
+    <div class="slide active" data-index="0">
+      <img class="bg" src="https://ik.imagekit.io/Foundation/Punjab_Gurdaspur__1756442018170_1756442018365.jpg?updatedAt=1757213452885" alt="Panjab flood relief">
+      <div class="overlay-dark"></div>
+      <div class="content">
         <h2>Panjab</h2>
-        <p>Sahayra Foundation coordinated emergency relief efforts in the flood-ravaged regions of Panjab.</p>
-        <button class="donate-btn">Donate Now</button>
+        <p><strong>Sahayra Foundation</strong> coordinated emergency relief efforts in the flood-ravaged regions of Panjab.</p>
+        <button class="donate-header">Donate Now</button>
       </div>
     </div>
-    <div class="slide">
-      <img src="https://akm-img-a-in.tosshub.com/aajtak/images/story/202507/687d24507c935-mandi--himachal-pradesh-12372517-16x9.jpg" alt="Himachal Pradesh">
-      <div class="slide-content">
+
+    <div class="slide" data-index="1">
+      <img class="bg" src="https://akm-img-a-in.tosshub.com/aajtak/images/story/202507/687d24507c935-mandi--himachal-pradesh-12372517-16x9.jpg" alt="Himachal Pradesh healthcare">
+      <div class="overlay-dark"></div>
+      <div class="content">
         <h2>Himachal Pradesh</h2>
-        <p>Sahayra Foundation focuses on improving healthcare access in remote areas.</p>
-        <button class="donate-btn">Donate Now</button>
+        <p><strong>Sahayra Foundation</strong> focuses on improving healthcare access in remote areas.</p>
+        <button class="donate-header">Donate Now</button>
       </div>
     </div>
-    <div class="slide">
-      <img src="https://ik.imagekit.io/Foundation/Jammu%20and%20Kashmir.jpg?updatedAt=1757239090026" alt="Jammu and Kashmir">
-      <div class="slide-content">
+
+    <div class="slide" data-index="2">
+      <img class="bg" src="https://ik.imagekit.io/Foundation/Jammu%20and%20Kashmir.jpg?updatedAt=1757239090026" alt="Jammu and Kashmir programs">
+      <div class="overlay-dark"></div>
+      <div class="content">
         <h2>Jammu and Kashmir</h2>
-        <p>Sahayra Foundation focuses on improving the lives of marginalised children, women and families through education, empowerment, relief work and health care.</p>
-        <button class="donate-btn">Donate Now</button>
+        <p><strong>Sahayra Foundation</strong> focuses on improving the lives of marginalised children, women and families through education, empowerment, relief work and health care.</p>
+        <button class="donate-header">Donate Now</button>
       </div>
+    </div>
+
+    <div class="dots" id="dots" aria-hidden="true"></div>
+  </section>
+
+  <!-- CORE VALUES -->
+  <section class="core-section" id="core-values">
+    <div class="core-list" role="tablist" aria-orientation="vertical">
+      <button class="active" data-index="0">Compassion</button>
+      <button data-index="1">Courage</button>
+      <button data-index="2">Commitment</button>
+      <button data-index="3">Leadership</button>
+      <button data-index="4">Righteousness</button>
+    </div>
+    <div class="core-content" id="core-content" role="tabpanel">
+      <h3>Compassion</h3>
+      <p>Our dedication to humanity goes beyond boundaries. We offer compassion regardless of race, religion, faith or nationality, and aim to ease suffering worldwide for all.</p>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section class="about">
+  <section class="about" id="about">
     <h2>About the Mission</h2>
-    <p>Sahayra Foundation is a non-profit organization dedicated to providing immediate relief and long-term rehabilitation to those affected by natural disasters...</p>
+    <p>
+      Sahayra Foundation is a non-profit organization dedicated to providing immediate relief and long-term rehabilitation to those affected by natural disasters. With the recent floods in Punjab, we have launched an emergency relief drive to deliver food, clean water, medical aid, and temporary shelters to the most vulnerable communities.
+    </p>
+    <ul style="margin-top:12px;">
+      <li>Food Distribution: Nutritious meals for displaced families.</li>
+      <li>Medical Assistance: Essential medicines and health support.</li>
+      <li>Clean Water Access: Preventing waterborne diseases.</li>
+      <li>Temporary Shelters: Safe spaces for families who have lost their homes.</li>
+    </ul>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="impact" id="impact">
+    <img class="bg" src="https://ik.imagekit.io/Foundation/q30s57do_flood_625x300_29_August_25.webp?updatedAt=1757213453617" alt="Impact image">
+    <div class="dark"></div>
+    <div class="impact-inner">
+      <h2>Our Impact & Updates</h2>
+      <ul>
+        <li>Over 10,000 meals distributed within the first week</li>
+        <li>Medical camps set up in 5 affected districts</li>
+        <li>Clean water tanks installed in rural flood-hit villages</li>
+      </ul>
+      <p style="font-style:italic;">“Thanks to the donors, we have food and shelter for our children. This support has given us a reason to believe again.”</p>
+      <div style="margin-top:14px;"><button class="donate-header">Donate Now</button></div>
+    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <p>"I have no kingdom, nor subjects,<br> wealth or property. I am a humble mendicant, and survival is difficult for me."<br>- Guru Gobind Singh ji</p>
-    <img src="https://ik.imagekit.io/Foundation/Shayra%20logo.png?updatedAt=1757213403979" alt="Sahayra Logo">
+    <div class="footer-left">
+      <!-- Two-line quote as requested -->
+      <div style="font-weight:600; margin-bottom:8px;">
+        "I have no kingdom, nor subjects,<br>
+        wealth or property. I am a humble mendicant,"
+      </div>
+      <div style="opacity:0.9">and survival is difficult for me. - Guru Gobind Singh ji</div>
+    </div>
+
+    <div class="footer-right">
+      <img src="https://ik.imagekit.io/Foundation/Shayra%20logo.png?updatedAt=1757213403979" alt="Sahayra logo">
+    </div>
+
     <hr>
-    <p>© 2025 Sahayra Foundation. All rights reserved.</p>
+    <div class="copyright">© 2025 Sahayra Foundation. All rights reserved.</div>
   </footer>
 
+  <!-- =========== SCRIPTS ============ -->
   <script>
-    // Sidebar Toggle
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
+    /* ---------- Sidebar open/close + overlay ---------- */
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    function openSidebar(){
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+      sidebar.setAttribute('aria-hidden','false');
     }
+    function closeSidebar(){
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      sidebar.setAttribute('aria-hidden','true');
+    }
+    function toggleSidebar(){
+      if(sidebar.classList.contains('open')) closeSidebar();
+      else openSidebar();
+    }
+    hamburger.addEventListener('click', toggleSidebar);
+    hamburger.addEventListener('keydown', (e)=>{ if(e.key==='Enter') toggleSidebar(); });
+    overlay.addEventListener('click', closeSidebar);
+    // close sidebar when clicking a link handled via inline onclick for links
 
-    // Slider Auto-Slide
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-    setInterval(() => {
-      slides[currentSlide].classList.remove('active');
-      currentSlide = (currentSlide + 1) % slides.length;
-      slides[currentSlide].classList.add('active');
-    }, 5000);
+    /* ---------- Slider: auto + dots + swipe ---------- */
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const dotsWrap = document.getElementById('dots');
+    let current = 0;
+    let slideInterval = null;
+    const INTERVAL = 5000;
+
+    function buildDots(){
+      slides.forEach((s,i)=>{
+        const d = document.createElement('div');
+        d.className='dot' + (i===0? ' active':'');
+        d.dataset.index = i;
+        d.addEventListener('click', ()=> goToSlide(i));
+        dotsWrap.appendChild(d);
+      });
+    }
+    function updateDots(){
+      const dots = dotsWrap.querySelectorAll('.dot');
+      dots.forEach((d,i)=> d.classList.toggle('active', i===current));
+    }
+    function goToSlide(index){
+      slides[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      updateDots();
+      resetInterval();
+    }
+    function nextSlide(){ goToSlide(current+1); }
+    function startInterval(){ slideInterval = setInterval(nextSlide, INTERVAL); }
+    function resetInterval(){ clearInterval(slideInterval); startInterval(); }
+
+    // swipe support
+    let startX = 0, dist = 0, threshold = 60, allowedTime = 500, startTime = 0;
+    const slider = document.getElementById('slider');
+    slider.addEventListener('touchstart', function(e){
+      const t = e.changedTouches[0];
+      startX = t.pageX; startTime = new Date().getTime();
+      clearInterval(slideInterval);
+    }, {passive:true});
+    slider.addEventListener('touchmove', function(e){ /* prevent vertical scroll issues? do nothing */ }, {passive:true});
+    slider.addEventListener('touchend', function(e){
+      const t = e.changedTouches[0];
+      dist = t.pageX - startX;
+      let elapsed = new Date().getTime() - startTime;
+      if(elapsed <= allowedTime){
+        if(Math.abs(dist) >= threshold){
+          if(dist < 0) nextSlide(); else goToSlide(current-1);
+        }
+      }
+      resetInterval();
+    });
+
+    // init slider
+    buildDots();
+    startInterval();
+
+    /* ---------- Core Values switching (first open) ---------- */
+    const coreBtns = Array.from(document.querySelectorAll('.core-list button'));
+    const coreContent = document.getElementById('core-content');
+    const coreData = [
+      {title:'Compassion', text:'Our dedication to humanity goes beyond boundaries. We offer compassion regardless of race, religion, faith or nationality, and aim to ease suffering worldwide for all.'},
+      {title:'Courage', text:'Our global volunteers demonstrate unwavering courage in our humanitarian work. Stepping into challenging situations, our frontline response reflects a strong commitment to making a positive impact, even in the face of adversity.'},
+      {title:'Commitment', text:'Our dedication to humanitarian values is the driving force behind our work. We consistently and diligently respond to crises to bring about lasting positive change.'},
+      {title:'Leadership', text:'As a humanitarian organisation, we lead by example. Through innovative approaches, collaboration, and efficient resource mobilisation, we inspire others to join our mission.'},
+      {title:'Righteousness', text:'Guided by principles of righteousness and justice, we actively tackle underlying causes of suffering, striving for a world where every person can live with dignity and respect.'}
+    ];
+    function showCore(index){
+      coreBtns.forEach((b,i)=> b.classList.toggle('active', i===index));
+      const d = coreData[index];
+      coreContent.style.opacity = 0;
+      setTimeout(()=> {
+        coreContent.innerHTML = '<h3>'+d.title+'</h3><p>'+d.text+'</p>';
+        coreContent.style.opacity = 1;
+      }, 180);
+    }
+    coreBtns.forEach((btn, idx)=>{
+      btn.addEventListener('click', ()=> showCore(idx));
+    });
+    // ensure first active on load
+    showCore(0);
+
+    /* ---------- Accessibility: close sidebar on escape ---------- */
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeSidebar(); });
+
+    /* ---------- Prevent accidental content removal: nothing removed from markup ---------- */
+    // All content present above as requested.
   </script>
-
 </body>
 </html>
