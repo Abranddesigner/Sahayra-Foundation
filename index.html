@@ -3,141 +3,248 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sahayra Foundation - Punjab Flood Relief</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>Sahayra Foundation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; color: #333; line-height: 1.6; }
-    header, footer { background: #0C2A4A; color: #fff; padding: 15px 20px; }
-    header img { height: 50px; vertical-align: middle; }
-    nav a { color: #fff; margin: 0 10px; text-decoration: none; font-weight: bold; }
-    .hero { text-align: center; padding: 60px 20px; background: #f5f5f5; }
-    .hero h1 { color: #0C2A4A; font-size: 2.2em; }
-    .hero p { max-width: 600px; margin: 20px auto; font-size: 1.1em; }
-    .btn { background: #F57C00; color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 10px 0; }
-    section { max-width: 900px; margin: 50px auto; padding: 0 20px; }
-    section h2 { color: #0C2A4A; font-size: 1.8em; margin-bottom: 10px; }
-    section p, section li { font-size: 1.05em; }
-    footer .columns { display: flex; flex-wrap: wrap; justify-content: space-between; }
-    footer div { margin: 10px; }
-    .sticky-donate { position: fixed; bottom: 20px; right: 20px; background: #F57C00; color: #fff;
-                     padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background: #fff;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav a:hover { color: orange; }
+    .donate-btn {
+      background: orange;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .slider {
+      position: relative;
+      overflow: hidden;
+      height: 70vh;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .slide.active { opacity: 1; }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .slide-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      max-width: 600px;
+    }
+    .slide-content h2 {
+      font-size: 2.5rem;
+      color: orange;
+      margin-bottom: 10px;
+    }
+    .slide-content p { margin-bottom: 20px; }
+    .core-values {
+      display: flex;
+      background: #f5f5f5;
+      padding: 40px;
+      flex-wrap: wrap;
+    }
+    .core-list {
+      flex: 1 1 200px;
+      margin-right: 30px;
+    }
+    .core-list button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      text-align: left;
+      background: #e5e5e5;
+      border: none;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .core-list button.active {
+      background: #ccc;
+    }
+    .core-content {
+      flex: 2 1 400px;
+    }
+    .core-content h3 {
+      font-size: 1.8rem;
+      color: orange;
+    }
+    .impact {
+      position: relative;
+      padding: 60px 20px;
+      color: white;
+      text-align: center;
+    }
+    .impact img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+    }
+    .impact::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+    .impact-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: auto;
+    }
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 20px 40px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
 
   <!-- Header -->
   <header>
-    <img src="logo.png" alt="Sahayra Foundation Logo">
-    <nav style="float:right;">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#donate">Donate</a>
-      <a href="#impact">Impact</a>
-      <a href="#contact">Contact</a>
+    <img src="https://ik.imagekit.io/Foundation/Shayra%20logo.png?updatedAt=1757213403979" alt="Sahayra Logo" height="50">
+    <nav class="desktop-nav">
+      <a href="#who">Who we are</a>
+      <a href="#what">What we do</a>
+      <a href="#help">How to help</a>
+      <a href="#contact">Get in touch</a>
     </nav>
-    <div style="clear: both;"></div>
+    <button class="donate-btn">Donate Now</button>
   </header>
 
-  <!-- Hero Section -->
-  <div class="hero" id="home">
-    <h1>Together, We Can Rebuild Lives in Punjab</h1>
-    <p>Thousands of families in Punjab are struggling after devastating floods swept away their homes, food, and safety. Your support can bring them hope and survival.</p>
-    <a href="#donate" class="btn">Donate Now</a>
-  </div>
+  <!-- Slider -->
+  <section class="slider" id="slider">
+    <div class="slide active">
+      <img src="https://ik.imagekit.io/Foundation/Punjab_Gurdaspur__1756442018170_1756442018365.jpg?updatedAt=1757213452885" alt="Punjab">
+      <div class="slide-content">
+        <h2>Panjab</h2>
+        <p>Sahayra Foundation coordinated emergency relief efforts in the flood-ravaged regions of Panjab.</p>
+        <button class="donate-btn">Donate Now</button>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://akm-img-a-in.tosshub.com/aajtak/images/story/202507/687d24507c935-mandi--himachal-pradesh-12372517-16x9.jpg" alt="Himachal Pradesh">
+      <div class="slide-content">
+        <h2>Himachal Pradesh</h2>
+        <p>Sahayra Foundation focuses on improving healthcare access in remote areas.</p>
+        <button class="donate-btn">Donate Now</button>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="https://ik.imagekit.io/Foundation/Jammu%20and%20Kashmir.jpg?updatedAt=1757239090026" alt="Jammu and Kashmir">
+      <div class="slide-content">
+        <h2>Jammu and Kashmir</h2>
+        <p>Sahayra Foundation focuses on improving the lives of marginalised children, women and families through education, empowerment, relief work and health care.</p>
+        <button class="donate-btn">Donate Now</button>
+      </div>
+    </div>
+  </section>
 
-  <!-- About the Mission -->
-  <section>
-    <h2>About the Mission</h2>
-    <p>Sahayra Foundation is a non-profit organization dedicated to providing immediate relief and long-term rehabilitation to those affected by natural disasters. With the recent floods in Punjab, we have launched an emergency relief drive to deliver food, clean water, medical aid, and temporary shelters to the most vulnerable communities.</p>
-    <ul>
-      <li><strong>Food Distribution:</strong> Nutritious meals for displaced families.</li>
-      <li><strong>Medical Assistance:</strong> Essential medicines and health support.</li>
-      <li><strong>Clean Water Access:</strong> Preventing waterborne diseases.</li>
-      <li><strong>Temporary Shelters:</strong> Safe spaces for families who have lost their homes.</li>
-    </ul>
+  <!-- Core Values -->
+  <section class="core-values">
+    <div class="core-list">
+      <button class="active" onclick="showValue('Compassion')">Compassion</button>
+      <button onclick="showValue('Courage')">Courage</button>
+      <button onclick="showValue('Commitment')">Commitment</button>
+      <button onclick="showValue('Leadership')">Leadership</button>
+      <button onclick="showValue('Righteousness')">Righteousness</button>
+    </div>
+    <div class="core-content" id="core-content">
+      <h3>Compassion</h3>
+      <p>Our dedication to humanity goes beyond boundaries. We offer compassion regardless of race, religion, faith or nationality, and aim to ease suffering worldwide for all.</p>
+    </div>
   </section>
 
   <!-- Impact Section -->
-  <section id="impact">
-    <h2>Our Impact & Updates</h2>
-    <ul>
-      <li>Over 10,000 meals distributed within the first week</li>
-      <li>Medical camps set up in 5 affected districts</li>
-      <li>Clean water tanks installed in rural flood-hit villages</li>
-    </ul>
-    <p><em>“Thanks to the donors, we have food and shelter for our children. This support has given us a reason to believe again.”</em> – A Punjab flood survivor</p>
-    <a href="#" class="btn">Subscribe for Updates</a>
-  </section>
-
-  <!-- Donate Page -->
-  <section id="donate">
-    <h2>Your Donation Can Save Lives</h2>
-    <p>The recent floods have left countless people without food, clean water, or shelter. By donating today, you are giving them a chance to recover and rebuild.</p>
-    <h3>Ways to Donate</h3>
-    <ul>
-      <li>Online Payment Gateway (Credit/Debit/UPI)</li>
-      <li>Direct Bank Transfer</li>
-      <li>Corporate Partnerships (CSR Donations)</li>
-    </ul>
-    <h3>What Your Support Provides</h3>
-    <ul>
-      <li>Emergency food kits for displaced families</li>
-      <li>Medical and hygiene supplies to prevent disease outbreaks</li>
-      <li>Temporary housing units for those who lost their homes</li>
-      <li>Rehabilitation and livelihood support for long-term recovery</li>
-    </ul>
-    <p>Every contribution is documented, audited, and used only for relief efforts. We provide regular updates, photographs, and impact reports to our donors.</p>
-    <a href="https://your-donation-link.com" class="btn">Donate Now</a>
-  </section>
-
-  <!-- About Us Page -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>Sahayra Foundation – "From Compassion to Care" – is a humanitarian organization driven by the belief that every life matters, especially in times of crisis. Our mission is to extend a helping hand to those facing the toughest days of their lives.</p>
-    <p>Founded with a vision to bridge the gap between those who want to help and those in need, Sahayra Foundation has been actively involved in community-driven relief efforts across India. The Punjab Flood Relief is our most urgent call to action.</p>
-    <h3>Our Core Values</h3>
-    <ul>
-      <li>Humanity First – Every action we take is for the well-being of people.</li>
-      <li>Transparency – We maintain clear records of every donation and relief effort.</li>
-      <li>Collaboration – We work hand-in-hand with volunteers, local authorities, and global supporters.</li>
-    </ul>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: info@sahayra.org</p>
-    <p>Phone: +91-XXXXXXXXXX</p>
-    <p>Address: Punjab, India</p>
+  <section class="impact">
+    <img src="https://ik.imagekit.io/Foundation/q30s57do_flood_625x300_29_August_25.webp?updatedAt=1757213453617" alt="Impact">
+    <div class="impact-content">
+      <h2 style="color:orange;">Our Impact & Updates</h2>
+      <ul style="list-style:none; padding:0;">
+        <li>Over 10,000 meals distributed within the first week</li>
+        <li>Medical camps set up in 5 affected districts</li>
+        <li>Clean water tanks installed in rural flood-hit villages</li>
+      </ul>
+      <blockquote>“Thanks to the donors, we have food and shelter for our children. This support has given us a reason to believe again.”</blockquote>
+      <button class="donate-btn">Donate Now</button>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="columns">
-      <div>
-        <img src="logo.png" alt="Sahayra Logo" style="height:40px;"><br>
-        From Compassion to Care
-      </div>
-      <div>
-        <h3>Quick Links</h3>
-        <a href="#home">Home</a> | 
-        <a href="#about">About</a> | 
-        <a href="#donate">Donate</a> | 
-        <a href="#impact">Impact</a> | 
-        <a href="#contact">Contact</a>
-      </div>
-      <div>
-        <h3>Follow Us</h3>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-    <p style="text-align:center; margin-top:10px;">© 2025 Sahayra Foundation. All rights reserved.</p>
+    <p>"I have no kingdom, nor subjects, wealth or property. I am a humble mendicant, and survival is difficult for me." - Guru Gobind Singh ji</p>
+    <p>© 2025 Sahayra Foundation. All rights reserved.</p>
   </footer>
 
-  <!-- Sticky Donate Button -->
-  <a href="#donate" class="sticky-donate">Donate Now</a>
+  <script>
+    // Slider Auto-Slide
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 5000);
+
+    // Core Values Switching
+    const coreTexts = {
+      Compassion: \"Our dedication to humanity goes beyond boundaries. We offer compassion regardless of race, religion, faith or nationality, and aim to ease suffering worldwide for all.\",
+      Courage: \"Our global volunteers demonstrate unwavering courage in our humanitarian work. Stepping into challenging situations, our frontline response reflects a strong commitment to making a positive impact, even in the face of adversity.\",
+      Commitment: \"Our dedication to humanitarian values is the driving force behind Khalsa Aid. We consistently and diligently respond to global crises to bring about lasting positive change.\",
+      Leadership: \"As a global humanitarian organisation, Khalsa Aid leads by example. Through innovative approaches, keen collaboration, and efficient resource mobilisation, we strive to inspire others to join our mission.\",
+      Righteousness: \"Guided by Sikh principles of righteousness and justice, we actively tackle the underlying causes of suffering, striving for a world where every person can live with dignity and respect.\"
+    };
+    function showValue(key) {
+      document.querySelectorAll('.core-list button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('core-content').innerHTML = `
+        <h3>${key}</h3>
+        <p>${coreTexts[key]}</p>
+      `;
+    }
+  </script>
 
 </body>
 </html>
