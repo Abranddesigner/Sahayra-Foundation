@@ -16,15 +16,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 40px;
+      padding: 15px 20px;
       background: white;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
+    nav {
+      display: flex;
+      gap: 15px;
+    }
     nav a {
-      margin: 0 10px;
       text-decoration: none;
       color: #333;
       font-weight: 500;
@@ -37,18 +40,26 @@
       padding: 10px 20px;
       border-radius: 20px;
       cursor: pointer;
+      transition: 0.3s;
     }
+    .donate-btn:hover {
+      background: #e69500;
+    }
+
+    /* Slider */
     .slider {
       position: relative;
       overflow: hidden;
-      height: 70vh;
+      width: 100%;
+      height: 60vh;
+      max-height: 500px;
     }
     .slide {
       position: absolute;
       width: 100%;
       height: 100%;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 0.8s ease-in-out;
     }
     .slide.active { opacity: 1; }
     .slide img {
@@ -63,38 +74,42 @@
       transform: translate(-50%, -50%);
       text-align: center;
       color: white;
+      width: 90%;
       max-width: 600px;
     }
     .slide-content h2 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: orange;
       margin-bottom: 10px;
     }
-    .slide-content p { margin-bottom: 20px; }
+
+    /* Core Values */
     .core-values {
       display: flex;
       background: #f5f5f5;
-      padding: 40px;
+      padding: 40px 20px;
       flex-wrap: wrap;
+      gap: 20px;
     }
     .core-list {
       flex: 1 1 200px;
-      margin-right: 30px;
+      max-width: 250px;
     }
     .core-list button {
       display: block;
       width: 100%;
       padding: 10px;
       text-align: left;
-      background: #e5e5e5;
+      background: #e0e0e0;
       border: none;
       margin-bottom: 10px;
       border-radius: 5px;
       cursor: pointer;
       font-weight: 500;
+      transition: 0.3s;
     }
     .core-list button.active {
-      background: #ccc;
+      background: #bfbfbf; /* light gray */
     }
     .core-content {
       flex: 2 1 400px;
@@ -103,6 +118,22 @@
       font-size: 1.8rem;
       color: orange;
     }
+
+    /* About */
+    .about {
+      padding: 40px 20px;
+      background: #fff;
+    }
+    .about h2 {
+      color: orange;
+      margin-bottom: 15px;
+    }
+    .about ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+
+    /* Impact */
     .impact {
       position: relative;
       padding: 60px 20px;
@@ -115,7 +146,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.5;
+      opacity: 0.4;
     }
     .impact::before {
       content: '';
@@ -131,12 +162,27 @@
       max-width: 600px;
       margin: auto;
     }
+
+    /* Footer */
     footer {
       background: #111;
       color: #fff;
-      padding: 20px 40px;
-      text-align: center;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
       font-size: 0.9rem;
+    }
+    footer img {
+      height: 40px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .slider { height: 50vh; }
+      footer { text-align: center; flex-direction: column; gap: 10px; }
     }
   </style>
 </head>
@@ -145,7 +191,7 @@
   <!-- Header -->
   <header>
     <img src="https://ik.imagekit.io/Foundation/Shayra%20logo.png?updatedAt=1757213403979" alt="Sahayra Logo" height="50">
-    <nav class="desktop-nav">
+    <nav>
       <a href="#who">Who we are</a>
       <a href="#what">What we do</a>
       <a href="#help">How to help</a>
@@ -197,6 +243,18 @@
     </div>
   </section>
 
+  <!-- About Section -->
+  <section class="about" id="about">
+    <h2>About the Mission</h2>
+    <p>Sahayra Foundation is a non-profit organization dedicated to providing immediate relief and long-term rehabilitation to those affected by natural disasters. With the recent floods in Punjab, we have launched an emergency relief drive to deliver food, clean water, medical aid, and temporary shelters to the most vulnerable communities.</p>
+    <ul>
+      <li>Food Distribution: Nutritious meals for displaced families.</li>
+      <li>Medical Assistance: Essential medicines and health support.</li>
+      <li>Clean Water Access: Preventing waterborne diseases.</li>
+      <li>Temporary Shelters: Safe spaces for families who have lost their homes.</li>
+    </ul>
+  </section>
+
   <!-- Impact Section -->
   <section class="impact">
     <img src="https://ik.imagekit.io/Foundation/q30s57do_flood_625x300_29_August_25.webp?updatedAt=1757213453617" alt="Impact">
@@ -214,12 +272,15 @@
 
   <!-- Footer -->
   <footer>
-    <p>"I have no kingdom, nor subjects, wealth or property. I am a humble mendicant, and survival is difficult for me." - Guru Gobind Singh ji</p>
-    <p>© 2025 Sahayra Foundation. All rights reserved.</p>
+    <div>
+      <p>"I have no kingdom, nor subjects, wealth or property. I am a humble mendicant, and survival is difficult for me." - Guru Gobind Singh ji</p>
+      <p>© 2025 Sahayra Foundation. All rights reserved.</p>
+    </div>
+    <img src="https://ik.imagekit.io/Foundation/Shayra%20logo.png?updatedAt=1757213403979" alt="Sahayra Logo">
   </footer>
 
   <script>
-    // Slider Auto-Slide
+    // Slider Auto-Slide + Swipe
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
     setInterval(() => {
@@ -230,11 +291,11 @@
 
     // Core Values Switching
     const coreTexts = {
-      Compassion: \"Our dedication to humanity goes beyond boundaries. We offer compassion regardless of race, religion, faith or nationality, and aim to ease suffering worldwide for all.\",
-      Courage: \"Our global volunteers demonstrate unwavering courage in our humanitarian work. Stepping into challenging situations, our frontline response reflects a strong commitment to making a positive impact, even in the face of adversity.\",
-      Commitment: \"Our dedication to humanitarian values is the driving force behind Khalsa Aid. We consistently and diligently respond to global crises to bring about lasting positive change.\",
-      Leadership: \"As a global humanitarian organisation, Khalsa Aid leads by example. Through innovative approaches, keen collaboration, and efficient resource mobilisation, we strive to inspire others to join our mission.\",
-      Righteousness: \"Guided by Sikh principles of righteousness and justice, we actively tackle the underlying causes of suffering, striving for a world where every person can live with dignity and respect.\"
+      Compassion: "Our dedication to humanity goes beyond boundaries. We offer compassion regardless of race, religion, faith or nationality, and aim to ease suffering worldwide for all.",
+      Courage: "Our global volunteers demonstrate unwavering courage in our humanitarian work. Stepping into challenging situations, our frontline response reflects a strong commitment to making a positive impact, even in the face of adversity.",
+      Commitment: "Our dedication to humanitarian values is the driving force behind Khalsa Aid. We consistently and diligently respond to global crises to bring about lasting positive change.",
+      Leadership: "As a global humanitarian organisation, Khalsa Aid leads by example. Through innovative approaches, keen collaboration, and efficient resource mobilisation, we strive to inspire others to join our mission.",
+      Righteousness: "Guided by Sikh principles of righteousness and justice, we actively tackle the underlying causes of suffering, striving for a world where every person can live with dignity and respect."
     };
     function showValue(key) {
       document.querySelectorAll('.core-list button').forEach(btn => btn.classList.remove('active'));
